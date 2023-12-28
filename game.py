@@ -1,24 +1,9 @@
 import pygame, sys
 import numpy as np
-
+from constants import *
 
 
 pygame.init()
-
-WIDTH = 600
-HEIGHT = 600
-GREY = (23, 145, 135 )
-BACKGROUND = (100, 207, 204)
-LINE_W = 15
-BOARD_R = 3
-BOARD_C = 3
-RADIUS = 60
-CIRCLE_WIDTH = 15
-CIRCLE_color = (239, 231, 200)
-X_color = (66,66,66)
-X_WIDTH = 25
-X_SPACE = 55
-
 
 screen = pygame.display.set_mode( (WIDTH,HEIGHT) )
 pygame.display.set_caption('Tic-Tac-Toe')
@@ -32,6 +17,8 @@ def create_lines():
     pygame.draw.line(screen, GREY, (0,400), (600,400), LINE_W)
     pygame.draw.line(screen, GREY, (200,0), (200,600), LINE_W)
     pygame.draw.line(screen, GREY, (400,0), (400,600), LINE_W)
+    pygame.draw.line(screen, WHITE, (0,600), (600,600), LINE_W)
+
 
 def draw_shape():
     for row in range(BOARD_R):
@@ -84,7 +71,7 @@ def draw_vertical_w(col,player):
     elif player == 2:
        color = X_color
 
-    pygame.draw.line(screen, color, (posX, 15), (posX, HEIGHT-15), 15)
+    pygame.draw.line(screen, color, (posX, 15), (posX, HEIGHT-115), 15)
 
 def draw_horizontal_w(row, player):
     posY = row * 200 + 100
@@ -99,14 +86,14 @@ def draw_asc(player):
         color = CIRCLE_color
     elif player == 2:
        color = X_color
-    pygame.draw.line(screen,color, (15, HEIGHT - 15), (WIDTH - 15, 15), 15)
+    pygame.draw.line(screen,color, (15, HEIGHT - 115), (WIDTH - 15, 15), 15)
     
 def draw_desc(player):
     if player == 1:
         color = CIRCLE_color
     elif player == 2:
        color = X_color
-    pygame.draw.line(screen, color, (15,15), (WIDTH-15, HEIGHT - 15), 15)
+    pygame.draw.line(screen, color, (15,15), (WIDTH-15, HEIGHT - 115), 15)
 
 def restart():
     screen.fill(BACKGROUND)
@@ -115,8 +102,17 @@ def restart():
     for row in range(BOARD_R):
         for col in range(BOARD_C):
             board[row][col] = 0
+    text("Press 'R' to restart.", font, text_col, 160, 250)
+
+font = pygame.font.SysFont("arialBlack", 40)
+
+
+def text(text, font, text_col, x, y):
+    word = font.render(text, True, text_col)
+    screen.blit(word, (100,630))
 
 create_lines()
+text("Press 'R' to restart.", font, text_col, 160, 250)
 
 player = 1
 gg = False
